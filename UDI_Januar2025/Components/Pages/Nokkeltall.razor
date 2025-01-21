@@ -1,0 +1,63 @@
+﻿@page "/"
+@inject IDataLesService dataLesService
+
+<PageTitle>UDI kodetest 2025</PageTitle>
+
+<h3><i class="bi bi-123"></i> Nøkkeltall</h3>
+
+@if (antallSakerTotalt == 0)
+{ 
+    <div class="alert alert-dark rounded p-3">
+        <p>Var det tomt her? Du kan <a href="/import">importere en JSON datafil</a> med saker.</p>
+        <p>Datafilen testdata.json finner du i repo-mappen for dette prosjektet.</p>
+    </div>
+}
+else
+{
+    <h5>Saker</h5>
+    <p>
+        Databasen inneholder <a href="/saker">@antallSakerTotalt saker</a>.
+    </p>
+
+    <h5>Personer</h5>
+    <p>
+        Databasen inneholder <a href="/personer">@antallPersonerTotalt personer</a>.
+    </p>
+
+    <h5>Vedtak</h5>
+    <div class="row">
+        <div class="col-2">Innvilget</div>
+        <div class="col-2">@antallVedtakInnvilget</div>
+    </div>
+    <div class="row">
+        <div class="col-2">Avslag</div>
+        <div class="col-2">@antallVedtakAvslag</div>
+    </div>
+    <div class="row">
+        <div class="col-2">Avvist</div>
+        <div class="col-2">@antallVedtakAvvist</div>
+    </div>
+    <div class="row">
+        <div class="col-2">Totalt</div>
+        <div class="col-2">@antallVedtakTotalt</div>
+    </div>
+}
+
+@code{
+    private int antallSakerTotalt = 0;
+    private int antallPersonerTotalt = 0;
+    private int antallVedtakInnvilget = 0;
+    private int antallVedtakAvslag = 0;
+    private int antallVedtakAvvist = 0;
+    private int antallVedtakTotalt = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        antallSakerTotalt = await dataLesService.TellAlleSaker();
+        antallPersonerTotalt = await dataLesService.TellAllePersoner();
+        antallVedtakInnvilget = await dataLesService.TellVedtakInnvilget();
+        antallVedtakAvslag = await dataLesService.TellVedtakAvslag();
+        antallVedtakAvvist = await dataLesService.TellVedtakAvvist();
+        antallVedtakTotalt = antallVedtakInnvilget + antallVedtakAvslag + antallVedtakAvvist;
+    }
+}

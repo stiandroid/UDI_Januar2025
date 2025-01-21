@@ -1,0 +1,49 @@
+﻿@page "/sak/{sakId}"
+@inject IDataLesService dataLesService
+
+<PageTitle>@title</PageTitle>
+
+<h3>@title</h3>
+
+@if (sak == null)
+{
+    <Loading />
+}
+else
+{ 
+    <p>
+        <a href="/saker" class="btn btn-primary"><i class="bi bi-arrow-left"></i> Tilbake</a>
+    </p>
+
+    <div class="row">
+        <div class="col-1">SakId</div>
+        <div class="col-2">: @sak.SakId</div>
+        <div class="col-1">RefNo/RecNo</div>
+        <div class="col-2">: @sak.RefNo / @sak.RecNo</div>
+        <div class="col-1">Sendt SMS</div>
+        <div class="col-2">: @sak.SendtSms</div>
+    </div>
+    <h5>Søker</h5>
+    <PersonInfo Person="sak.Soeker" />
+    <h5>Fullmektig</h5>
+    <PersonInfo Person="sak.Fullmektig" />
+    <h5>Kontaktperson</h5>
+    <PersonInfo Person="sak.Kontakt" />
+}
+
+@code {
+    [Parameter]
+    public required string SakId { get; set; }
+
+    private SakDto? sak;
+    private string title = "Sak ...";
+
+    protected override async Task OnInitializedAsync()
+    {
+        sak = await dataLesService.HentSakMedSakId(Uri.UnescapeDataString(SakId)); // SakId inneholder "/"
+        if (sak != null)
+        {
+            title = $"Sak {sak.SakId}";
+        }
+    }
+}

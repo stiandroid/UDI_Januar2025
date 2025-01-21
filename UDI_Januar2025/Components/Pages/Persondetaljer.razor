@@ -1,0 +1,29 @@
+﻿@page "/person/{personnummer}"
+@inject IDataLesService dataLesService
+
+<PageTitle>UDI kodetest 2025 - @title</PageTitle>
+
+<h3><i class="bi bi-person"></i> @title</h3>
+
+@if (person == null)
+{
+    <Loading />
+}
+else
+{ 
+    <PersonInfo Person="@person" />
+}
+
+@code {
+    [Parameter]
+    public required string Personnummer { get; set; }
+
+    private PersonDto? person;
+    private string title = "Persondetaljer";
+
+    protected override async Task OnInitializedAsync()
+    {
+        person = await dataLesService.HentPersonMedPersonnummer(Personnummer);
+        title = person != null ? person.FulltNavn : "Henter person ...";
+    }
+}

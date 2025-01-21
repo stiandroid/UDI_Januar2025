@@ -1,0 +1,47 @@
+﻿@page "/saker"
+@inject IDataLesService dataLesService
+@inject NavigationManager nav
+
+<PageTitle>UDI kodetest 2025 - Saker</PageTitle>
+
+<h3><i class="bi bi-paperclip"></i> Saker</h3>
+
+@if (saker == null)
+{
+    <Loading />
+}
+else
+{
+    <div class="row py-1 fw-bold">
+        <div class="col-1">SakId</div>
+        <div class="col-1">RefNo</div>
+        <div class="col-1">RecNo</div>
+        <div class="col-3">Søker</div>
+        <div class="col-2">Vedtak</div>
+    </div>
+
+    foreach (var sak in saker)
+    {
+        <div class="row py-1 list-row" @onclick="(() => NavigateToSaksdetaljer(sak.SakId))">
+            <div class="col-1">@sak.SakId</div>
+            <div class="col-1">@sak.RefNo</div>
+            <div class="col-1">@sak.RecNo</div>
+            <div class="col-3">@sak.Soeker?.FulltNavn</div>
+            <div class="col-2">@sak.Vedtak?.Status</div>
+        </div>
+    }
+}
+
+@code {
+    private List<SakDto>? saker;
+
+    protected override async Task OnInitializedAsync()
+    {
+        saker = await dataLesService.HentAlleSaker();
+    }
+
+    private void NavigateToSaksdetaljer(string sakId)
+    {
+        nav.NavigateTo($"/sak/{Uri.EscapeDataString(sakId)}");
+    }
+}

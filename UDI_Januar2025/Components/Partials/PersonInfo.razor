@@ -1,0 +1,34 @@
+﻿@if (Person != null)
+{ 
+    <div class="row">
+        <div class="col-1">Navn</div>
+        <div class="col-2">@Person.FulltNavn</div>
+        <div class="col-1">Personnummer</div>
+        <div class="col-2">@Person.Personnummer</div>
+        <div class="col-1">Fødselsdato</div>
+        <div class="col-2">@Person.Fødselsdato</div>
+        <div class="col-1">Reisedokumentnummer</div>
+        <div class="col-2">@Person.Reisedokumentnummer</div>
+    </div>
+    <div class="row">
+        <div class="col-1">Adresse</div>
+        <div class="col-2">@Person.Adresse</div>
+        <div class="col-1">Mobilnummer</div>
+        <div class="col-2">@Person.Mobilnummer</div>
+        <div class="col-1">E-postadresse</div>
+        <div class="col-5">@Person.Epost</div>
+    </div>
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-11">@Person.Postadresse</div>
+    </div>
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-11">@Person.Land</div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public PersonDto? Person { get; set; }
+}
