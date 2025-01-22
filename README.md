@@ -23,7 +23,7 @@ Listen er klikkbar, og man kan navigere seg til detaljsiden for hver enkelt pers
 Her vises alle lagrede detaljer om en enkelt sak. Det er også mulig å navigere videre til personene tilknyttet saken.
 
 ### Detaljside for Person
-Her vises alle lagrede detaljer om en enkelt person, inkludert en liste over alle sakene til personen.
+Her vises alle lagrede detaljer om en enkelt person, inkludert en liste over alle personens saker, med vedtaksstatus.
 
 ### Import av data
 Her kan brukeren importere og slette data.
