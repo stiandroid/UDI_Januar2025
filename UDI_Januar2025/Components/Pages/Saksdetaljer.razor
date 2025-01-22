@@ -1,34 +1,28 @@
 ﻿@page "/sak/{sakId}"
 @inject IDataLesService dataLesService
 
-<PageTitle>@title</PageTitle>
+<PageTitle>UDI kodetest 2025 - @title</PageTitle>
 
-<h3>@title</h3>
+<h3 class="page-head"><i class="bi bi-paperclip"></i> @title</h3>
 
 @if (sak == null)
 {
-    <Loading />
+    <LoadingPartial />
 }
 else
 { 
     <p>
-        <a href="/saker" class="btn btn-primary"><i class="bi bi-arrow-left"></i> Tilbake</a>
+        <span class="fw-bold">SakId</span>: @sak.SakId
+        <span class="ms-3 fw-bold">RefNo</span>: @sak.RefNo
+        <span class="ms-3 fw-bold">RecNo</span>: @sak.RecNo
+        <span class="ms-3 fw-bold">Sendt SMS</span>: @sak.SendtSms
     </p>
 
-    <div class="row">
-        <div class="col-1">SakId</div>
-        <div class="col-2">: @sak.SakId</div>
-        <div class="col-1">RefNo/RecNo</div>
-        <div class="col-2">: @sak.RefNo / @sak.RecNo</div>
-        <div class="col-1">Sendt SMS</div>
-        <div class="col-2">: @sak.SendtSms</div>
-    </div>
-    <h5>Søker</h5>
-    <PersonInfo Person="sak.Soeker" />
-    <h5>Fullmektig</h5>
-    <PersonInfo Person="sak.Fullmektig" />
-    <h5>Kontaktperson</h5>
-    <PersonInfo Person="sak.Kontakt" />
+    <VedtakPartial Vedtak="sak.Vedtak" />
+
+    <PersondataPartial Person="sak.Soeker" Title="Søker" IsCaseView="true" />
+    <PersondataPartial Person="sak.Fullmektig" Title="Fullmektig" IsCaseView="true" />
+    <PersondataPartial Person="sak.Kontakt" Title="Kontaktperson" IsCaseView="true" />
 }
 
 @code {
@@ -36,14 +30,11 @@ else
     public required string SakId { get; set; }
 
     private SakDto? sak;
-    private string title = "Sak ...";
+    private string? title;
 
     protected override async Task OnInitializedAsync()
     {
         sak = await dataLesService.HentSakMedSakId(Uri.UnescapeDataString(SakId)); // SakId inneholder "/"
-        if (sak != null)
-        {
-            title = $"Sak {sak.SakId}";
-        }
+        title = sak != null ? $"Sak {sak.SakId} ({sak.Soeker?.FulltNavn})" : "Henter sak ...";
     }
 }

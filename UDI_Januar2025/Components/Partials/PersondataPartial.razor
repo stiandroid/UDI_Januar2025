@@ -1,0 +1,57 @@
+﻿@if (Person != null)
+{
+    if (!string.IsNullOrEmpty(Title))
+    {
+        <h5 class="mt-3 list-head">@Title</h5>
+    }
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="row">
+                <div class="col-5">Navn</div>
+                <div class="col-7">
+                    @Person.FulltNavn
+                    @if (IsCaseView)
+                    { 
+                        <a href="/person/@(Person.Personnummer)" title="Vis person"><i class="bi bi-person"></i></a>
+                    }
+                </div>
+                <div class="col-5">Personnummer</div>
+                <div class="col-7">@Person.Personnummer</div>
+                <div class="col-5">Fødselsdato</div>
+                <div class="col-7">@Person.Fødselsdato</div>
+                <div class="col-5">Reisedokumentnummer</div>
+                <div class="col-7">@Person.Reisedokumentnummer</div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="row mb-4">
+                <div class="col-5">Adresse</div>
+                <div class="col-7">
+                    @Person.Adresse<br />
+                    @Person.Postadresse<br />
+                    @Person.Land
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-5">Mobilnummer</div>
+                <div class="col-7">@Person.Mobilnummer</div>
+                <div class="col-5">E-postadresse</div>
+                <div class="col-7">
+                    @Person.Epost
+                    <a href="mailto:@(Person.Epost)" title="Send e-post"><i class="bi bi-at"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public PersonDto? Person { get; set; }
+
+    [Parameter]
+    public bool IsCaseView { get; set; }
+
+    [Parameter]
+    public string? Title { get; set; }
+}

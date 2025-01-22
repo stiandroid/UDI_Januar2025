@@ -1,20 +1,51 @@
 ﻿@page "/import"
 @inject IFilService fileService
+@inject IDataLesService dataLesService
 
 <PageTitle>UDI kodetest 2025 - Importer data</PageTitle>
 
-<h3><i class="bi bi-database-add"></i> Importer data</h3>
+<h3 class="page-head"><i class="bi bi-database-add"></i> Importer data</h3>
 
 <p>
     Velg datafil i JSON-format, maks 1 MB:<br />
     <InputFile OnChange="LoadFile" />
 </p>
 
-@if (importResult != null)
+@if (!string.IsNullOrEmpty(fileName))
 { 
-    <p>
-        Filen ble lastet opp.
-    </p>
+    <p>Laster opp @fileName ...</p>
+}
+
+@if (importResult != null)
+{
+    <div class="alert alert-success rounded p-2 mb-2">
+        <h5>Filen ble lastet opp.</h5>
+    </div>
+    @if (importResult.Success)
+    {
+        <div class="alert alert-success rounded p-2">
+            <h5>Data ble lagret i databasen</h5>
+            <a href="/">Vis nøkkeltall</a>.
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning rounded p-2">
+            <h5>Data ble ikke lagret i databasen</h5>
+            <p>Se detaljer om feil under.</p>
+        </div>
+    }
+}
+
+@if (hasData)
+{ 
+    <div class="alert alert-danger rounded p-2">
+        Importere på nytt?
+        <a href="slett" class="btn btn-danger">
+            <i class="bi bi-database-x"></i>
+            Tøm databasen
+        </a>
+    </div>
 }
 
 @if (errors.Count > 0)
@@ -30,13 +61,25 @@
 
 @code {
     private List<string> errors = new();
-    private ServiceResult? importResult = null;
+    private ServiceResult? importResult;
+    private string? fileName;
+    private bool hasData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        hasData = await dataLesService.TellAlleSaker() +
+                  await dataLesService.TellAllePersoner() +
+                  await dataLesService.TellVedtakInnvilget() +
+                  await dataLesService.TellVedtakAvslag() +
+                  await dataLesService.TellVedtakAvvist() > 0;
+    }
 
     private async Task LoadFile(InputFileChangeEventArgs e)
     {
         errors.Clear();
-
+        fileName = e.File.Name;
         importResult = await fileService.ImportFileAsync(e.File);
+        fileName = null;
 
         if (!importResult.Success)
         {

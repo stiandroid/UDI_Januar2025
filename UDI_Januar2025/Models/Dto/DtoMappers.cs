@@ -36,8 +36,11 @@ public static class DtoMappers
         => new()
         { 
             Authority = vedtak.Authority,
-            Status = vedtak.Status,
-            GyldigFra = vedtak.GyldigFra?.ToString("dd.MM.yyyy") ?? "-",
-            GyldigTil = vedtak.GyldigTil?.ToString("dd.MM.yyyy") ?? "-"
+            Status = vedtak.Status.StartsWith("Ja") ? VedtakEnum.Innvilget : 
+                     vedtak.Status.StartsWith("Nei") ? VedtakEnum.Avslag :
+                     vedtak.Status.StartsWith("Avvist") ? VedtakEnum.Avvist :
+                     VedtakEnum.Annet,
+            GyldigFra = vedtak.GyldigFra?.ToString("dd.MM.yyyy") ?? "",
+            GyldigTil = vedtak.GyldigTil?.ToString("dd.MM.yyyy") ?? ""
         };
 }

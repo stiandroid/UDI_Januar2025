@@ -1,0 +1,12 @@
+﻿<div class="container d-flex justify-content-center align-items-center page-foot">
+    <div class="text-center">@((MarkupString)footerText)</div>
+</div>
+@code {
+    private DateTime date = DateTime.UtcNow;
+    private string footerText = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        footerText = $@"<a href=""mailto:stian.saether@gmail.com"">Stian Sæther</a> &copy; {date.Year}";
+    }
+}

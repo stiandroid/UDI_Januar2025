@@ -10,5 +10,6 @@ public static class RegisterAppServicesExtension
 
         builder.Services.AddScoped<IFilService, FilService>();
         builder.Services.AddScoped<IDataLesService, DataLesService>();
+        builder.Services.AddScoped<IDataSlettService, DataSlettService>();
     }
 }
