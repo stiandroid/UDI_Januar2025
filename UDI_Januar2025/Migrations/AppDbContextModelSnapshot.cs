@@ -72,7 +72,7 @@ namespace UDI_Januar2025.Migrations
 
                     b.HasKey("Personnummer");
 
-                    b.ToTable("Personer");
+                    b.ToTable("Personer", (string)null);
 
                     b.HasAnnotation("Relational:JsonPropertyName", "Søker");
                 });
@@ -116,7 +116,7 @@ namespace UDI_Januar2025.Migrations
 
                     b.HasIndex("VedtakId");
 
-                    b.ToTable("Saker");
+                    b.ToTable("Saker", (string)null);
                 });
 
             modelBuilder.Entity("UDI_Januar2025.Models.Vedtak", b =>
@@ -141,7 +141,7 @@ namespace UDI_Januar2025.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Vedtak");
+                    b.ToTable("Vedtak", (string)null);
                 });
 
             modelBuilder.Entity("UDI_Januar2025.Models.Sak", b =>

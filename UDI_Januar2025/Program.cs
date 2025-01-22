@@ -6,6 +6,7 @@ global using UDI_Januar2025.Data;
 global using UDI_Januar2025.Models;
 global using UDI_Januar2025.Services.FilService;
 global using UDI_Januar2025.Services.DataLesService;
+global using UDI_Januar2025.Services.DataSlettService;
 using UDI_Januar2025;
 
 var builder = WebApplication.CreateBuilder(args);

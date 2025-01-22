@@ -1,0 +1,25 @@
+﻿@if (Vedtak != null)
+{
+    <h5 class="mt-3 list-head">Vedtak</h5>
+
+    <div class="row">
+        <div class="col-6">Status</div>
+        <div class="col-6 vedtak-@((int)Vedtak.Status)">@Vedtak.Status</div>
+        <div class="col-6">Gyldighetsperiode</div>
+        <div class="col-6">
+            @if (Vedtak.Status == VedtakEnum.Avslag || Vedtak.Status == VedtakEnum.Avvist)
+            {
+                <del>@Vedtak.Gyldighet</del>
+            }
+            else
+            {
+                @Vedtak.Gyldighet
+            }
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public VedtakDto? Vedtak { get; set; }
+}

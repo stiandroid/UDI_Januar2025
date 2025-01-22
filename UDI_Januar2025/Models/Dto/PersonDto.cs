@@ -15,6 +15,9 @@ public class PersonDto
     public string Postnummer { get; set; } = string.Empty;
     public string Land { get; set; } = string.Empty;
 
-    public string FulltNavn => $"{Etternavn}, {Fornavn} {Mellomnavn}";
-    public string Postadresse => $"{Postnummer} {Poststed}";
+    public List<SakDto> Saker { get; set; } = new();
+    public string FulltNavn 
+        => $"{Etternavn}, {Fornavn}{(!string.IsNullOrEmpty(Mellomnavn) ? $" {Mellomnavn}" : "")}";
+    public string Postadresse 
+        => $"{Postnummer} {Poststed}";
 }

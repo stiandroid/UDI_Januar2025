@@ -1,9 +1,9 @@
 ﻿@page "/"
 @inject IDataLesService dataLesService
 
-<PageTitle>UDI kodetest 2025</PageTitle>
+<PageTitle>UDI kodetest 2025 - Nøkkeltall</PageTitle>
 
-<h3><i class="bi bi-123"></i> Nøkkeltall</h3>
+<h3 class="page-head"><i class="bi bi-123"></i> Nøkkeltall</h3>
 
 @if (antallSakerTotalt == 0)
 { 
@@ -14,17 +14,17 @@
 }
 else
 {
-    <h5>Saker</h5>
+    <h5 class="list-head"><i class="bi bi-paperclip"></i> Saker</h5>
     <p>
         Databasen inneholder <a href="/saker">@antallSakerTotalt saker</a>.
     </p>
 
-    <h5>Personer</h5>
+    <h5 class="list-head"><i class="bi bi-person"></i> Personer</h5>
     <p>
         Databasen inneholder <a href="/personer">@antallPersonerTotalt personer</a>.
     </p>
 
-    <h5>Vedtak</h5>
+    <h5 class="list-head"><i class="bi bi-file-earmark-text"></i> Vedtak</h5>
     <div class="row">
         <div class="col-2">Innvilget</div>
         <div class="col-2">@antallVedtakInnvilget</div>

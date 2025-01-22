@@ -40,9 +40,17 @@ public class FilService(AppDbContext dbContext) : IFilService
             {
                 foreach (var sak in saker)
                 {
-                    sak.Soeker = sak.Soeker != null ? await GetOrUpdatePersonAsync(sak.Soeker) : null;
-                    sak.Fullmektig = sak.Fullmektig != null ? await GetOrUpdatePersonAsync(sak.Fullmektig) : null;
-                    sak.Kontakt = sak.Kontakt != null ? await GetOrUpdatePersonAsync(sak.Kontakt) : null;
+                    sak.Soeker = sak.Soeker != null 
+                        ? await GetOrUpdatePersonAsync(sak.Soeker)
+                        : null;
+
+                    sak.Fullmektig = sak.Fullmektig != null 
+                        ? await GetOrUpdatePersonAsync(sak.Fullmektig)
+                        : null;
+
+                    sak.Kontakt = sak.Kontakt != null 
+                        ? await GetOrUpdatePersonAsync(sak.Kontakt)
+                        : null;
 
                     var existingSak = await dbContext.Saker
                         .FirstOrDefaultAsync(s => s.SakId == sak.SakId);

@@ -1,0 +1,66 @@
+﻿@inject NavigationManager nav
+
+@if (Saker != null)
+{ 
+    @if (IsPersonView)
+    {
+        <h5 class="list-head"><i class="bi bi-paperclip"></i> Saker</h5>
+    }
+
+    <div class="row py-1 list-head">
+        <div class="col">SakId</div>
+        <div class="col">RefNo</div>
+        <div class="col">RecNo</div>
+        @if (!IsPersonView)
+        {
+            <div class="col-3">Søker</div>
+        }
+        <div class="col">Vedtak</div>
+        <div class="col-3">Gyldighet</div>
+    </div>
+
+    @foreach (var sak in Saker)
+    {
+        <div class="row py-1 list-row" @onclick="(() => NavigateToSaksdetaljer(sak.SakId))">
+            <div class="col">@sak.SakId</div>
+            <div class="col">@sak.RefNo</div>
+            <div class="col">@sak.RecNo</div>
+            @if (!IsPersonView)
+            { 
+                <div class="col-3">@sak.Soeker?.FulltNavn</div>
+            }
+            @if (sak.Vedtak != null)
+            {
+                <div class="col vedtak-@((int)sak.Vedtak.Status)">@sak.Vedtak?.Status</div>
+                <div class="col-3">
+                    @if (sak.Vedtak?.Status == VedtakEnum.Avslag || sak.Vedtak?.Status == VedtakEnum.Avvist)
+                    {
+                        <del>@sak.Vedtak?.Gyldighet</del>
+                    }
+                    else
+                    {
+                        @sak.Vedtak?.Gyldighet
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="col">Ikke fattet</div>
+                <div class="col-3">-</div>
+            }
+        </div>
+    }
+}
+
+@code {
+    [Parameter]
+    public List<SakDto>? Saker { get; set; }
+
+    [Parameter]
+    public bool IsPersonView { get; set; }
+
+    private void NavigateToSaksdetaljer(string sakId)
+    {
+        nav.NavigateTo($"/sak/{Uri.EscapeDataString(sakId)}");
+    }
+}

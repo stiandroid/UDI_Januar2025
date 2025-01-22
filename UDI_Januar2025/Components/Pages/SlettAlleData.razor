@@ -1,0 +1,80 @@
+﻿@page "/slett"
+@inject IDataSlettService dataSlettService
+@inject IDataLesService dataLesService
+@inject NavigationManager nav
+
+<PageTitle>UDI kodetest 2025 - Slett alle data</PageTitle>
+
+<h3 class="page-head"><i class="bi bi-database-x"></i> Slett alle data</h3>
+
+@if (errors.Count > 0)
+{
+    <h4>Feil</h4>
+    <ul class="text-danger">
+        @foreach (var error in errors)
+        {
+            <li>@error</li>
+        }
+    </ul>
+}
+
+@if (deleteResult == null)
+{ 
+    if (hasData)
+    {
+        <div class="alert alert-danger rounded p-2">
+            <h5>Bekreft at du vil slette alle dataene i databasen.</h5>
+            <form @onsubmit="BekreftSletting">
+                <a href="/import" class="btn btn-primary">
+                    <i class="bi bi-arrow-left-short"></i>
+                    Avbryt
+                </a>
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-database-x"></i>
+                    Slett
+                </button>
+            </form>
+        </div>
+    }
+    else
+    {
+        <p>Ingenting å slette. Databasen er tom.</p>
+    }
+}
+
+@if (deleteResult != null && deleteResult.Success)
+{
+    <div class="alert alert-success rounded p-2">
+        <h5>Alle dataene i databasen ble slettet!</h5>
+        <p><a href="/import">Importer på nytt</a>.</p>
+    </div>
+}
+
+@code {
+    private List<string> errors = new();
+    private ServiceResult? deleteResult;
+    private bool hasData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        hasData = await dataLesService.TellAlleSaker() +
+                  await dataLesService.TellAllePersoner() + 
+                  await dataLesService.TellVedtakInnvilget() +
+                  await dataLesService.TellVedtakAvslag() +
+                  await dataLesService.TellVedtakAvvist() > 0;
+    }
+
+    private async Task BekreftSletting()
+    {
+        errors.Clear();
+        deleteResult = await dataSlettService.SlettAlleData();
+        if (deleteResult.Success)
+        {
+            hasData = false;
+        }
+        else
+        {
+            errors.AddRange(deleteResult.Errors);
+        }
+    }
+}

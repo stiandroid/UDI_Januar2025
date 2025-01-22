@@ -1,0 +1,51 @@
+[
+  {
+    "id": "95d4b04a-a7ed-dc55-0f47-45a215e73b2f",
+    "RefNo": "refno1",
+    "Recno": 1234561,
+    "Sakid": "01/01402",
+    "SendtSms": false,
+    "Kontakt": {
+      "Epost": "noreplyX@test.com",
+      "ExternalIdField": "11111111111",
+      "Fornavn": "Test",
+      "Etternavn": "TestX",
+      "Mellomnavn": "Abc",
+      "Mobilnummer": "11111111",
+      "Personnummer": "91111111111",
+      "Reisedokumentnummer": "2222222222",
+      "Fødselsdato": "1990-05-09T00:00:00.0000000",
+      "Adresse": "Apalveien",
+      "Poststed": "Andeby",
+      "Postnummer": "9876",
+      "Land": "Norge"
+    },
+    "Fullmektig": null,
+    "Søker": {
+      "Epost": "noreplyX@test.com",
+      "ExternalIdField": "11111111111",
+      "Fornavn": "Test",
+      "Etternavn": "TestX",
+      "Mellomnavn": "Abc",
+      "Mobilnummer": "11111111",
+      "Personnummer": "91111111111",
+      "Reisedokumentnummer": "2222222222",
+      "Fødselsdato": "1990-05-09T00:00:00.0000000",
+      "Adresse": "Apalveien",
+      "Poststed": "Andeby",
+      "Postnummer": "9876",
+      "Land": "Norge"
+    },
+    "Vedtak": {
+      "Authority": "UDI",
+      "Status": "Ja,innvilget",
+      "GyldigFra": "2024-05-01T00:00:00",
+      "GyldigTil": "2024-05-25T00:00:00"
+    },
+    "_rid": "j28IAP1FfKcIAAAAAAAAAA==",
+    "_self": "dbs/j28IAA==/colls/j28IAP1FfKc=/docs/j28IAP1FfKcIAAAAAAAAAA==/",
+    "_etag": "\"00004a01-0000-3c00-0000-60b936bc0000\"",
+    "_attachments": "attachments/",
+    "_ts": 1622750908
+  }
+]

@@ -6,6 +6,8 @@ public interface IDataLesService
     
     Task<List<SakDto>> HentAlleSaker();
 
+    Task<List<SakDto>> HentSakerMedSoekersPersonnummer(string personnummer);
+
     Task<SakDto?> HentSakMedSakId(string sakId);
 
     Task<List<PersonDto>> HentAllePersoner();
