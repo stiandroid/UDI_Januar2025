@@ -1,6 +1,7 @@
 # UDI kodetest 2025
 Av Stian Sæther
 
+Stack: Blazor Server Webapp, .NET 9, C#, Razor, EF Core (med SQL Server Express).
 
 
 Datafilene [testdata.json](https://github.com/stiandroid/UDI_Januar2025/blob/master/mer_testdata.json), [mer_testdata.json](https://github.com/stiandroid/UDI_Januar2025/blob/master/mer_testdata.json) og [feilformatert_testdata.json](https://github.com/stiandroid/UDI_Januar2025/blob/master/feilformatert_testdata.json) er inkludert i repo-mappen. Disse kan brukes til å teste filopplastings- og dataimporteringsfunksjonaliteten. Følg instruksjonene i applikasjonen for å importere datafiler.
